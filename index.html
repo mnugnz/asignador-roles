@@ -146,16 +146,8 @@
       }
 
       function saveData() {
-        const authToken = prompt(
-          "Introduce la contraseña para guardar los datos:"
-        );
-        if (!authToken) {
-          alert("Contraseña no introducida. Operación cancelada.");
-          return;
-        }
-
         fetch(
-          `${API_URL}?action=saveData&token=${authToken}&payload=` +
+          `${API_URL}?action=saveData&payload=` +
             encodeURIComponent(
               JSON.stringify({
                 miembros: members,
@@ -163,20 +155,7 @@
                 asignaciones: assignments,
               })
             )
-        )
-          .then((res) => res.text())
-          .then((resp) => {
-            if (resp === "OK") {
-              alert("Datos guardados correctamente");
-            } else if (resp === "INVALID_TOKEN") {
-              alert("Contraseña incorrecta. No se han guardado los datos.");
-            } else {
-              alert("Respuesta inesperada del servidor: " + resp);
-            }
-          })
-          .catch((err) => {
-            alert("Error al guardar: " + err);
-          });
+        );
       }
     </script>
   </body>
